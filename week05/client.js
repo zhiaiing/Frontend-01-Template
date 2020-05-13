@@ -41,10 +41,8 @@ class Request {
         console.log('start send request ');
         return new Promise((resolve, reject) => {
             if (connection) {
-                console.log(this.toString());
                 connection.write(this.toString());
             } else {
-                console.log(this);
                 connection = net.createConnection({
                         host: this.host,
                         port: this.port,
