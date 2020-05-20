@@ -10,7 +10,6 @@ let stack = [ {type: "document", children:[] }];
 let rules = [];
 function addCssRules(text) {
     var ast = css.parse(text);
-    // console.log(JSON.stringify(ast, null, " "));
     rules.push(...ast.stylesheet.rules);
 }
 
@@ -125,9 +124,7 @@ function emit (token) {
         computeCss(element);
 
         top.children.push(element);
-
         // element.parent = top;
-
         if (!token.isSelfClosing){
             stack.push(element);
         }
@@ -368,8 +365,8 @@ function afterAttributeName(c) {
         return attributeName(c);
     }
 }
-module.exports.parseHTML = function parseHTML(html) {
-    // console.log(html);
+
+function parseHTML(html) {
     let state = data;
     for(let c of html) {
         state = state(c);
@@ -377,6 +374,8 @@ module.exports.parseHTML = function parseHTML(html) {
     state = state(EOF);
     return stack[0];
 }
+
+module.exports.parseHTML = parseHTML;
 
 // let soure = `<html maaa=a>
 // <head>
